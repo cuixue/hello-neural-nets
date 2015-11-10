@@ -1,13 +1,13 @@
 import tensorflow as tf
 
 
-def build_adder(a, b):
-    x = tf.constant(a)
-    y = tf.constant(b)
+def build_adder(x, y):
     return x + y
 
 
-if __name__ == '__main__':
-    z = build_adder(2, 2)
-    with tf.Session():
-        print("Two plus two is {}".format(z.eval()))
+x = tf.placeholder('float')
+y = tf.placeholder('float')
+adder = build_adder(x, y)
+with tf.Session() as sess:
+    four = adder.eval(feed_dict={x: 2, y: 2})
+    print "Two plus two is {}".format(four)
