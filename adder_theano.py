@@ -10,6 +10,5 @@ def build_adder():
         outputs=z)
 
 
-if __name__ == '__main__':
-    adder = build_adder()
-    print('Two plus two is {}'.format(adder(2, 2)))
+adder = build_adder()
+print('Two plus two is {}'.format(adder(2, 2)))
