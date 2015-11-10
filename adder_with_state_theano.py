@@ -7,14 +7,17 @@ def build_adder():
     z = x + y
     run_count = theano.shared(value=0)
     update_run_count = (run_count, run_count + 1)
-    return theano.function(
+    get_count = theano.function(inputs=[], outputs=run_count)
+    add = theano.function(
         inputs=[x, y],
         updates=[update_run_count],
-        outputs=[z, run_count])
+        outputs=[z])
+    return add, get_count
 
 
-adder = build_adder()
+adder, get_count = build_adder()
 for i in range(5):
-    a, b = i, 2
-    value, count = adder(a, b)
+    a, b = i, i*2
+    value, = adder(a, b)
+    count = get_count()
     print('The sum of {} and {} is {}. You have run this function {} times.'.format(a, b, value, count))
